@@ -30,6 +30,22 @@
                     </ul>
                 </li>
                 <!-- End AdminPanelSetting -->
+
+                <!-- Start Client -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.clients.index']) }}">
+                    <a href="#!" class="nav-link"><span class="nav-icon"><i class="ti ti-award"></i></span><span class="nav-text">{{
+                            trans('dashboard/sidebar.admin_client_sidebar_title') }}</span><span class="nav-arrow"><i
+                                data-feather="chevron-right"></i></span></a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.clients.index') }}"
+                                href="{{route('admin.clients.index')}}">{{
+                                trans('dashboard/sidebar.client_sidebar_title')
+                                }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Client -->
             </ul>
         </div>
     </div>

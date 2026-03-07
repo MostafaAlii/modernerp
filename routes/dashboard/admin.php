@@ -26,6 +26,7 @@ Route::group(
                 Route::get('/', 'index')->name('index');
                 Route::post('store', 'store')->name('store');
             });
+            Route::resource('clients', Dashboard\ClientController::class);
         });
         require __DIR__ . '../../auth.php';
     }
