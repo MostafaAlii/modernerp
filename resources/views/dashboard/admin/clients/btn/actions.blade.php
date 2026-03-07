@@ -23,10 +23,27 @@
                             <label class="form-label">اسم</label>
                             <input type="text" name="name" class="form-control" value="{{ $client->name }}" required>
                         </div>
-    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="form-label">البريد الإلكتروني</label>
+                                <input type="email" name="email" class="form-control" value="{{ $client->email }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">رقم الهاتف</label>
+                                <input type="text" name="phone" class="form-control" value="{{ $client->phone }}">
+                            </div>
+                        </div>
+
                         <div class="mb-3">
-                            <label class="form-label">رقم الهاتف</label>
-                            <input type="text" name="phone" class="form-control" value="{{ $client->phone }}">
+                            <label class="form-label">الحالة</label>
+                            <select name="status" class="form-select">
+                                @foreach(\App\Enums\Client\ClientStatus::cases() as $status)
+                                    <option value="{{ $status->value }}" 
+                                        {{ $client->status === $status ? 'selected' : '' }}>
+                                        {{ trans('dashboard/general.' . strtolower($status->name)) }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
     
     

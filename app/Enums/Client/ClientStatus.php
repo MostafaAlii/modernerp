@@ -8,8 +8,13 @@ enum ClientStatus: string
     case IN_ACTIVE = 'inactive';
     case BLOCKED = "blocked";
 
-    public static function status($value): string
-    {
+    public static function options(): array {
+        return collect(self::cases())->mapWithKeys(fn($case) => [
+            $case->value => trans('dashboard/general.' . strtolower($case->name))
+        ])->toArray();
+    }
+
+    public static function status($value): string {
         if ($value == self::ACTIVE) {
             return '<span class="badge badge-success">' . trans('dashboard/general.active') . '</span>';
         } elseif ($value == self::IN_ACTIVE) {

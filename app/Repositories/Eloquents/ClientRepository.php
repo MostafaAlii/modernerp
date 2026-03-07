@@ -48,12 +48,16 @@ class ClientRepository implements ClientRepositoryInterface
         $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'nullable|string',
+            'email'  => 'nullable|email|unique:clients,email,' . $id,
+            'status' => 'required|in:' . implode(',', array_column(\App\Enums\Client\ClientStatus::cases(), 'value'))
         ]);
 
         $client = Client::findOrFail($id);
         $client->update([
             'name' => $request->name,
+            'email' => $request->email,
             'phone' => $request->phone,
+            'status' => $request->status,
         ]);
         return redirect()->route('admin.clients.index')->with('success', 'تم تحديث العميل بنجاح!');
     }
