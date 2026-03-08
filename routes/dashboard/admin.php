@@ -27,7 +27,9 @@ Route::group(
                 Route::post('store', 'store')->name('store');
             });
             Route::resource('clients', Dashboard\ClientController::class);
-        });
+            Route::post('clients/{client}/companies/store', [Dashboard\ClientController::class, 'storeCompany'])->name('clients.companies.store');
+            Route::patch('clients/{client}/companies/{company}/status', [Dashboard\ClientController::class, 'updateCompanyStatus'])->name('clients.companies.updateStatus');
+            });
         require __DIR__ . '../../auth.php';
     }
 );

@@ -8,7 +8,7 @@
 
 <div class="modal fade" id="addCompanyModal{{ $client->id }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="{{-- route('admin.companies.store') --}}" method="POST">
+        <form action="{{ route('admin.clients.companies.store', $client->id) }}" method="POST">
             @csrf
             <input type="hidden" name="client_id" value="{{ $client->id }}">
             <div class="modal-content">

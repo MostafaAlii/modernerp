@@ -1,6 +1,5 @@
 @extends('dashboard.layouts.master')
 @section('css')
-
 @endsection
 
 @section('title')
@@ -56,4 +55,7 @@
 
 @push('js')
 {!! $dataTable->scripts() !!}
+<script>window.translations = {error: "{{ trans('dashboard/general.error_occurred') }}",};</script>
+<script src="{{ asset('dashboard/assets/js/custom/utils/alert.js') }}"></script>
+<script src="{{ asset('dashboard/assets/js/custom/admin/clients/index.js') }}"></script>
 @endpush

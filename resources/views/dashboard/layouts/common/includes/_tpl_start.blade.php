@@ -13,7 +13,7 @@
     <meta name="description" content="{{ $settings?->company_name }}" />
     <meta name="keywords" content="{{ $settings?->company_name }}" />
     <meta name="author" content="{{ $settings?->company_name }}" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" href="{{ $favicon }}" type="image/x-icon" />
 
