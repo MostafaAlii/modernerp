@@ -15,6 +15,7 @@ class Company extends Authenticatable {
         'phone',
         'status',
         'password',
+        'client_id',
     ];
 
     protected $hidden = [
@@ -35,5 +36,9 @@ class Company extends Authenticatable {
                 $builder->where('id', $user?->company_id);
             }
         });
+    }
+
+    public function client() {
+        return $this->belongsTo(Client::class);
     }
 }
