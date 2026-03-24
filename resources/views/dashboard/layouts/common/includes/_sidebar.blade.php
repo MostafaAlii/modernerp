@@ -49,6 +49,22 @@
                 </li>
                 <!-- End Client -->
                 @endOwnerOnly
+
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.treasuries.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-building-bank"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/treasury.treasuries') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.treasuries.index') }}"
+                            href="{{ route('admin.treasuries.index') }}">
+                                {{ trans('dashboard/treasury.treasuries') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

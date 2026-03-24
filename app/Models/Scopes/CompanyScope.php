@@ -15,9 +15,9 @@ class CompanyScope implements Scope {
         }
 
         if ($user->type === AdminType::OWNER && is_null($user->company_id)) {
-            return; // يشوف الكل
+            return;
         }
 
-        $builder->where('company_id', $user->company_id);
+        $builder->where($model->getTable() . '.company_id', $user->company_id);
     }
 }

@@ -28,11 +28,8 @@ class AppServiceProvider extends ServiceProvider {
                 }
                 return $query->first();
             });
-
             $logo = $settings?->getMediaUrl('setting', $settings, null, 'media', 'logo') ?? asset('dashboard/assets/images/default/default.png');
-
             $favicon = $settings?->getMediaUrl('setting', $settings, null, 'media', 'favicon') ?? asset('dashboard/assets/images/default/default.png');
-
             View::share(compact('settings', 'logo', 'favicon'));
         }
     }

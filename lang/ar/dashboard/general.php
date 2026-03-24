@@ -36,5 +36,8 @@ return [
     'not_updated' => 'غير معدل',
     'not_available' => 'غير متوفر',
 
-
+    'cancel'           => 'إلغاء',
+    'confirm_delete'   => 'نعم، حذف',
+    'action_irreversible' => 'هذا الإجراء لا يمكن التراجع عنه.',
+    'error_occurred' => 'حدث خطأ ما، يرجى المحاولة مرة أخرى',
 ];
