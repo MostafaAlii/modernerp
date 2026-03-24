@@ -30,7 +30,9 @@
                     </ul>
                 </li>
                 <!-- End AdminPanelSetting -->
-
+                
+                    
+                @ownerOnly
                 <!-- Start Client -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.clients.index']) }}">
                     <a href="#!" class="nav-link"><span class="nav-icon"><i class="ti ti-award"></i></span><span class="nav-text">{{
@@ -46,6 +48,7 @@
                     </ul>
                 </li>
                 <!-- End Client -->
+                @endOwnerOnly
             </ul>
         </div>
     </div>

@@ -26,6 +26,7 @@ return [
     'close'                             =>                      'مغلق',
     'created_at'                        =>                      'اضافه منذ',
     'updated_at'                         =>                      'تحديث منذ',
+    'unauthorized' => 'ليس لديك صلاحية للوصول إلى هذه الصفحة',
 
     'created_successfully' => 'تم الحفظ بنجاح.',
     'updated_successfully' => 'تم التحديث بنجاح.',

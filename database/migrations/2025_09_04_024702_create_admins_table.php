@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('password');
             $table->date('date')->nullable();
             $table->foreignId('company_id')->nullable()->constrained()->cascadeOnDelete();
-            //$table->foreignId('branch_id')->nullable()->constrained()->cascadeOnDelete();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
