@@ -32,6 +32,8 @@ Route::group(
                 Route::patch('clients/{client}/companies/{company}/status', [Dashboard\ClientController::class, 'updateCompanyStatus'])->name('clients.companies.updateStatus');
             });    
             Route::resource('treasuries', Dashboard\TreasuryController::class);
+            Route::patch('treasuries/{treasury}/toggle-status', [Dashboard\TreasuryController::class, 'toggleStatus'])->name('treasuries.toggleStatus');
+            Route::patch('treasuries/{treasury}/toggle-master', [Dashboard\TreasuryController::class, 'toggleMaster'])->name('treasuries.toggleMaster');
         });
         require __DIR__ . '../../auth.php';
     }

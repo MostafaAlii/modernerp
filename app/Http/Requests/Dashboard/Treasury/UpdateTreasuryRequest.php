@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Http\Requests\Dashboard\Treasury;
-
 use Illuminate\Foundation\Http\FormRequest;
-class StoreTreasuryRequest extends FormRequest {
+class UpdateTreasuryRequest extends FormRequest {
     public function authorize(): bool {
         return true;
     }
@@ -14,7 +12,7 @@ class StoreTreasuryRequest extends FormRequest {
             'is_master' => ['boolean'],
             'is_active' => ['boolean'],
             'last_exchange_receipt' => ['nullable', 'integer', 'min:0'],
-            'last_collect_receipt'  => ['nullable', 'integer', 'min:0'],
+        'last_collect_receipt'  => ['nullable', 'integer', 'min:0'],
         ];
         foreach ($locales as $locale) {
             $rules["name.$locale"] = $locale === 'ar'

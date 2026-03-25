@@ -43,6 +43,9 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
+                    @if($errors->any())
+    <pre>{{ old('modal_source') }}</pre>
+@endif
                         <table class="table table-striped table-row-bordered gy-5 gs-7">
                             {!! $dataTable->table() !!}
                         </table>
@@ -69,15 +72,40 @@
     @if(session('error') || $errors->any())
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var modal = new bootstrap.Modal(document.getElementById('createTreasuryModal'));
-            modal.show();
+            @php
+                $locales     = array_keys(config('laravellocalization.supportedLocales'));
+                $modalSource = old('modal_source', 'create');
+            @endphp
 
-            @php $locales = array_keys(config('laravellocalization.supportedLocales')); @endphp
-            @foreach($locales as $locale)
-                @if($errors->has('name.' . $locale))
-                    document.querySelector('[data-bs-target="#tab-{{ $locale }}"]')?.click();
-                @endif
-            @endforeach
+            @if(str_starts_with(old('modal_source', 'create'), 'edit_'))
+                @php $editId = str_replace('edit_', '', old('modal_source')); @endphp
+
+                // استنى الـ DataTable يحمل الـ rows الأول
+                var checkExist = setInterval(function () {
+                    var modalEl = document.getElementById('editModal{{ $editId }}');
+                    if (modalEl) {
+                        clearInterval(checkExist);
+                        var modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                        @foreach($locales as $locale)
+                            @if($errors->has('name.' . $locale))
+                                setTimeout(function () {
+                                    modalEl.querySelector('[data-bs-target="#edit-tab-{{ $locale }}-{{ $editId }}"]')?.click();
+                                }, 300);
+                            @endif
+                        @endforeach
+                    }
+                }, 100);
+
+            @else
+                var modal = new bootstrap.Modal(document.getElementById('createTreasuryModal'));
+                modal.show();
+                @foreach($locales as $locale)
+                    @if($errors->has('name.' . $locale))
+                        document.querySelector('[data-bs-target="#tab-{{ $locale }}"]')?.click();
+                    @endif
+                @endforeach
+            @endif
         });
     </script>
     @endif

@@ -12,7 +12,7 @@
                 @csrf
                 <div class="modal-body">
 
-                    {{-- Tabs بتاعت اللغات --}}
+                    <input type="hidden" name="modal_source" value="create">
                     @php
                         $locales = array_keys(config('laravellocalization.supportedLocales'));
                         $currentLocale = app()->getLocale();
@@ -54,6 +54,39 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">{{ trans('dashboard/treasury.last_exchange_receipt_number') }}</label>
+                                <input type="number"
+                                    name="last_exchange_receipt"
+                                    class="form-control {{ $errors->has('last_exchange_receipt') ? 'is-invalid' : '' }}"
+                                    value="{{ old('last_exchange_receipt', 0) }}"
+                                    min="0">
+                                @if($errors->has('last_exchange_receipt'))
+                                    <div class="invalid-feedback d-block">
+                                        {{ $errors->first('last_exchange_receipt') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">{{ trans('dashboard/treasury.last_collect_receipt_number') }}</label>
+                                <input type="number"
+                                    name="last_collect_receipt"
+                                    class="form-control {{ $errors->has('last_collect_receipt') ? 'is-invalid' : '' }}"
+                                    value="{{ old('last_collect_receipt', 0) }}"
+                                    min="0">
+                                @if($errors->has('last_collect_receipt'))
+                                    <div class="invalid-feedback d-block">
+                                        {{ $errors->first('last_collect_receipt') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
 
                     {{-- is_master --}}

@@ -43,5 +43,7 @@ return [
         'name_required' => 'Treasury name in :locale is required',
         'name_string'   => 'Treasury name in :locale must be a string',
         'name_max'      => 'Treasury name in :locale must not exceed 255 characters',
+        'receipt_integer'  => 'Receipt number must be an integer',
+    'receipt_min'      => 'Receipt number must be greater than or equal to zero',
     ],
 ];

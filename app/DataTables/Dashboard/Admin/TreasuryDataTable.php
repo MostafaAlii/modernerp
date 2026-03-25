@@ -26,12 +26,35 @@ class TreasuryDataTable extends BaseDataTable {
                     ?? '-';
             })
             ->editColumn('is_active', function (Treasury $treasury) {
-                return TreasuryStatus::from($treasury->is_active->value)->badge();
+                return '
+                    <div class="d-flex flex-column align-items-center gap-1">
+                        <span class="badge-status">' . $treasury->is_active->badge() . '</span>
+                        <div class="form-check form-switch">
+                            <input type="checkbox"
+                                class="form-check-input toggle-status"
+                                data-id="' . $treasury->id . '"
+                                data-route="' . route('admin.treasuries.toggleStatus', $treasury->id) . '"
+                                ' . ($treasury->is_active === TreasuryStatus::ACTIVE ? 'checked' : '') . '>
+                        </div>
+                    </div>
+                ';
             })
             ->editColumn('is_master', function (Treasury $treasury) {
-                return $treasury->is_master
-                    ? '<span class="badge bg-primary">'  . trans('dashboard/treasury.master') . '</span>'
-                    : '<span class="badge bg-secondary">' . trans('dashboard/treasury.sub')   . '</span>';
+                $badge = $treasury->is_master
+                    ? '<span class="badge bg-primary">'   . trans('dashboard/treasury.master') . '</span>'
+                    : '<span class="badge bg-secondary">' . trans('dashboard/treasury.sub')    . '</span>';
+
+                return '
+                    <div class="d-flex flex-column align-items-center gap-1">
+                        <span class="badge-master">' . $badge . '</span>
+                        <div class="form-check form-switch">
+                            <input type="checkbox"
+                                class="form-check-input toggle-master"
+                                data-route="' . route('admin.treasuries.toggleMaster', $treasury->id) . '"
+                                ' . ($treasury->is_master ? 'checked' : '') . '>
+                        </div>
+                    </div>
+                ';
             })
             ->editColumn('company', function (Treasury $treasury) {
                 return $treasury->company?->name ?? '-';

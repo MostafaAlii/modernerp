@@ -1,10 +1,6 @@
 <?php
-// app/Enums/Treasury/TreasuryStatus.php
-
 namespace App\Enums\Treasury;
-
-enum TreasuryStatus: int
-{
+enum TreasuryStatus: int {
     case ACTIVE   = 1;
     case INACTIVE = 0;
 
