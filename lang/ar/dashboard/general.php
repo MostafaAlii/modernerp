@@ -27,6 +27,7 @@ return [
     'created_at'                        =>                      'اضافه منذ',
     'updated_at'                         =>                      'تحديث منذ',
     'unauthorized' => 'ليس لديك صلاحية للوصول إلى هذه الصفحة',
+    'loading' => 'جاري التحميل...',
 
     'created_successfully' => 'تم الحفظ بنجاح.',
     'updated_successfully' => 'تم التحديث بنجاح.',
@@ -40,4 +41,8 @@ return [
     'confirm_delete'   => 'نعم، حذف',
     'action_irreversible' => 'هذا الإجراء لا يمكن التراجع عنه.',
     'error_occurred' => 'حدث خطأ ما، يرجى المحاولة مرة أخرى',
+    'basic_info' => 'معلومات عامه',
+    'company' => 'الشركه',
+    'date' => 'تاريخ الانشاء',
+    'add' => 'اضافه',
 ];

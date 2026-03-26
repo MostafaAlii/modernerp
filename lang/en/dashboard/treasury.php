@@ -38,7 +38,15 @@ return [
     'not_found'             => 'Treasury not found',
 
     'delete_confirm' => 'Are you sure you want to delete ":name"?',
-
+    'master_exists' => 'A master treasury already exists for company ":company"',
+    'select_sub_treasury' => '-- Select Sub Treasury --',
+    'delivery_already_exists'      => 'This sub treasury is already linked',
+    'delivery_created_successfully' => 'Sub treasury linked successfully',
+    'no_company'    => 'N/A',
+    'delivery_treasury' => 'Sub Treasury',
+    'added_by'          => 'Added By',
+    'no_deliveries'     => 'No sub treasuries linked',
+    'delivery_deleted_successfully' => 'Sub treasury deleted successfully',
     'validation' => [
         'name_required' => 'Treasury name in :locale is required',
         'name_string'   => 'Treasury name in :locale must be a string',

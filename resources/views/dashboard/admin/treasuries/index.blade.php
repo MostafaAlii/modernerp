@@ -1,5 +1,4 @@
 @extends('dashboard.layouts.master')
-
 @section('css')
 @endsection
 
@@ -34,7 +33,7 @@
                         <i class="fa fa-plus"></i>
                         {{ trans('dashboard/treasury.create') }}
                     </button>
-                    
+
                     @php
                         $locales = array_keys(config('laravellocalization.supportedLocales'));
                         $currentLocale = app()->getLocale();
@@ -43,9 +42,6 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                    @if($errors->any())
-    <pre>{{ old('modal_source') }}</pre>
-@endif
                         <table class="table table-striped table-row-bordered gy-5 gs-7">
                             {!! $dataTable->table() !!}
                         </table>
@@ -79,8 +75,6 @@
 
             @if(str_starts_with(old('modal_source', 'create'), 'edit_'))
                 @php $editId = str_replace('edit_', '', old('modal_source')); @endphp
-
-                // استنى الـ DataTable يحمل الـ rows الأول
                 var checkExist = setInterval(function () {
                     var modalEl = document.getElementById('editModal{{ $editId }}');
                     if (modalEl) {
@@ -109,6 +103,7 @@
         });
     </script>
     @endif
+
     <script src="{{ asset('dashboard/assets/js/custom/utils/alert.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/custom/admin/treasuries/index.js') }}"></script>
 @endpush

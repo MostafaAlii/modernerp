@@ -38,9 +38,20 @@ return [
     'status_updated'        => 'تم تحديث الحالة بنجاح',
     'type_updated'        => 'تم تحديث النوع بنجاح',
     'not_found'             => 'الخزينة غير موجودة',
+    'master_exists' => 'يوجد بالفعل خزينة رئيسية للشركة ":company"',
+    'no_company'    => 'غير محدد',
+    'details' => 'التفاصيل',
 
     'delete_confirm' => 'هل أنت متأكد من حذف ":name"؟',
-
+    'sub_treasuries_of' => 'الخزن الفرعية التابعة للخزينه :name',
+    'delivery_note'     => 'تسليم العهده للخزينه :name',
+    'select_sub_treasury' => '-- اختر الخزينة الفرعية --',
+    'delivery_already_exists'      => 'هذه الخزينة الفرعية مرتبطة بالفعل',
+    'delivery_created_successfully' => 'تم ربط الخزينة الفرعية بنجاح',
+    'delivery_treasury' => 'الخزينة الفرعية',
+    'added_by'          => 'أضيف بواسطة',
+    'no_deliveries'     => 'لا توجد خزائن فرعية مرتبطة',
+    'delivery_deleted_successfully' => 'تم حذف الخزينة الفرعية بنجاح',
 
     'validation' => [
         'name_required' => 'اسم الخزينة باللغة :locale مطلوب',

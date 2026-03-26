@@ -18,7 +18,12 @@ class TreasuryDataTable extends BaseDataTable {
     public function dataTable($query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('action', function (Treasury $treasury) {
-                return view('dashboard.admin.treasuries.btn.actions', compact('treasury'));
+                $subTreasuries = Treasury::active()
+                    ->where('is_master', false)
+                    ->where('company_id', $treasury->company_id)
+                    ->where('id', '!=', $treasury->id)
+                    ->get();
+                return view('dashboard.admin.treasuries.btn.actions', compact('treasury', 'subTreasuries'));
             })
             ->editColumn('name', function (Treasury $treasury) {
                 return $treasury->translate(app()->getLocale())?->name
@@ -100,7 +105,7 @@ class TreasuryDataTable extends BaseDataTable {
     {
         return [
             ['name' => 'id',         'data' => 'id',         'title' => '#',                                          'className' => 'text-center'],
-            ['name' => 'name',       'data' => 'name',       'title' => trans('dashboard/treasury.name'),             'className' => 'text-center'],
+            ['name' => 'name',       'data' => 'name',       'title' => trans('dashboard/treasury.name'),             'className' => 'text-center', 'searchable' => false],
             ['name' => 'is_master',  'data' => 'is_master',  'title' => trans('dashboard/treasury.is_master'),        'className' => 'text-center', 'orderable' => false, 'searchable' => false],
             ['name' => 'is_active',  'data' => 'is_active',  'title' => trans('dashboard/treasury.is_active'),        'className' => 'text-center', 'orderable' => false, 'searchable' => false],
             ['name' => 'company',    'data' => 'company',    'title' => trans('dashboard/treasury.company'),          'className' => 'text-center', 'orderable' => false, 'searchable' => false],
