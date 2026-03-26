@@ -65,6 +65,24 @@
                         </li>
                     </ul>
                 </li>
+
+                <!-- Start SalesMatrialType -->
+                <li class="nav-item nav-hasmenu {{-- is_open(['admin.salesMatrialTypes.index']) --}}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-tag"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/sales_matrial_type.sales_matrial_types') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{-- is_active('admin.salesMatrialTypes.index') --}}"
+                                href="{{-- route('admin.salesMatrialTypes.index') --}}">
+                                {{ trans('dashboard/sales_matrial_type.sales_matrial_types') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End SalesMatrialType -->
             </ul>
         </div>
     </div>

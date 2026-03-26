@@ -1,8 +1,8 @@
 <?php
 namespace App\Models\Translations;
 use Illuminate\Database\Eloquent\Model;
-class TreasuryTranslation extends Model {
-    protected $table = 'treasury_translations';
+class SalesMatrialTypeTranslation extends Model {
+    protected $table = 'sales_matrial_type_translations';
     public $timestamps = false;
     protected $fillable = [
         'name',
