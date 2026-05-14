@@ -33,8 +33,7 @@ class SalesMatrialTypeDataTable extends BaseDataTable
                         <div class="form-check form-switch">
                             <input type="checkbox"
                                 class="form-check-input toggle-status"
-                                data-id="' . $salesMatrialType->id . '"
-                                data-route="' . route('admin.treasuries.toggleStatus', $salesMatrialType->id) . '"
+                                data-route="' . route('admin.salesMatrialTypes.toggleStatus', $salesMatrialType->id) . '"
                                 ' . ($salesMatrialType->is_active === SalesMatrialTypeStatus::ACTIVE ? 'checked' : '') . '>
                         </div>
                     </div>

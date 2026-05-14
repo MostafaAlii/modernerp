@@ -7,5 +7,6 @@ class SalesMatrialTypeTranslation extends Model {
     protected $fillable = [
         'name',
         'locale',
+        'sales_matrial_type_id'
     ];
 }

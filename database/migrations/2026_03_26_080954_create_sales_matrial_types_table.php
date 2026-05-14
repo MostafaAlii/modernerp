@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->foreignId('sales_matrial_type_id')->constrained()->cascadeOnDelete();
             $table->string('locale')->index();
             $table->string('name');
-            $table->unique(['sales_matrial_type_id', 'locale']);
+            $table->unique(['sales_matrial_type_id', 'locale'],'smt_type_locale_unique');
         });
     }
 
