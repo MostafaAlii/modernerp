@@ -150,7 +150,6 @@
 @endif
 
 <script>
-    // auto hide after 4s
     setTimeout(() => {
         document.querySelectorAll('.custom-alert').forEach(alert => {
             alert.classList.add('fade-out');

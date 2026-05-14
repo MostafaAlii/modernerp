@@ -30,6 +30,59 @@
                     </ul>
                 </li>
                 <!-- End AdminPanelSetting -->
+                
+                    
+                @ownerOnly
+                <!-- Start Client -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.clients.index']) }}">
+                    <a href="#!" class="nav-link"><span class="nav-icon"><i class="ti ti-award"></i></span><span class="nav-text">{{
+                            trans('dashboard/sidebar.admin_client_sidebar_title') }}</span><span class="nav-arrow"><i
+                                data-feather="chevron-right"></i></span></a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.clients.index') }}"
+                                href="{{route('admin.clients.index')}}">{{
+                                trans('dashboard/sidebar.client_sidebar_title')
+                                }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Client -->
+                @endOwnerOnly
+
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.treasuries.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-building-bank"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/treasury.treasuries') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.treasuries.index') }}"
+                            href="{{ route('admin.treasuries.index') }}">
+                                {{ trans('dashboard/treasury.treasuries') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- Start SalesMatrialType -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.salesMatrialTypes.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-tag"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/sales_matrial_type.sales_matrial_types') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.salesMatrialTypes.index') }}"
+                                href="{{ route('admin.salesMatrialTypes.index') }}">
+                                {{ trans('dashboard/sales_matrial_type.sales_matrial_types') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End SalesMatrialType -->
             </ul>
         </div>
     </div>

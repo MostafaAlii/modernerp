@@ -53,4 +53,8 @@ class Client extends Authenticatable
     {
         return $query->where('status', ClientStatus::IN_ACTIVE->value);
     }
+
+    public function companies() {
+        return $this->hasMany(Company::class);
+    }
 }

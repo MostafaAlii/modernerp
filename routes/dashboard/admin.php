@@ -26,7 +26,21 @@ Route::group(
                 Route::get('/', 'index')->name('index');
                 Route::post('store', 'store')->name('store');
             });
-        });
+            Route::middleware(['ensure.owner'])->group(function () {
+                Route::resource('clients', Dashboard\ClientController::class);
+                Route::post('clients/{client}/companies/store', [Dashboard\ClientController::class, 'storeCompany'])->name('clients.companies.store');
+                Route::patch('clients/{client}/companies/{company}/status', [Dashboard\ClientController::class, 'updateCompanyStatus'])->name('clients.companies.updateStatus');
+            });
+            Route::resource('treasuries', Dashboard\TreasuryController::class);
+            Route::patch('treasuries/{treasury}/toggle-status', [Dashboard\TreasuryController::class, 'toggleStatus'])->name('treasuries.toggleStatus');
+            Route::patch('treasuries/{treasury}/toggle-master', [Dashboard\TreasuryController::class, 'toggleMaster'])->name('treasuries.toggleMaster');
+            Route::post('treasuries/{treasury}/delivery', [Dashboard\TreasuryController::class, 'storeDelivery'])->name('treasuries.storeDelivery');
+            Route::get('treasuries/{treasury}/delivery', [Dashboard\TreasuryController::class, 'getDeliveries'])->name('treasuries.getDeliveries');
+            Route::delete('treasuries/delivery/{detail}', [Dashboard\TreasuryController::class, 'destroyDelivery'])->name('treasuries.destroyDelivery');
+
+            // salesMatrialTypes
+            Route::resource('salesMatrialTypes', Dashboard\SalesMatrialTypeController::class)->except(['show']);
+            Route::patch('salesMatrialTypes/{salesMatrialType}/toggle-status',[Dashboard\SalesMatrialTypeController::class, 'toggleStatus'])->name('salesMatrialTypes.toggleStatus');});
         require __DIR__ . '../../auth.php';
     }
 );

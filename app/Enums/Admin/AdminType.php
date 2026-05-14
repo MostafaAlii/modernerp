@@ -8,6 +8,21 @@ enum AdminType: string
     case COMPANY_ADMIN = 'company_admin';
     case BRANCH_ADMIN = 'branch_admin';
 
+    public function isOwner(): bool
+    {
+        return $this === self::OWNER;
+    }
+
+    public function isCompanyAdmin(): bool
+    {
+        return $this === self::COMPANY_ADMIN;
+    }
+
+    public function isBranchAdmin(): bool
+    {
+        return $this === self::BRANCH_ADMIN;
+    }
+
     public static function label($value): string {
         return match ($value) {
             self::OWNER => trans('dashboard/general.owner'),
