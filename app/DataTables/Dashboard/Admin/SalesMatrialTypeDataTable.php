@@ -48,6 +48,7 @@ class SalesMatrialTypeDataTable extends BaseDataTable
             ->editColumn('updated_at', function (SalesMatrialType $salesMatrialType) {
                 return $this->formatTranslatedDate($salesMatrialType->updated_at);
             })
+            ->addIndexColumn()
             ->rawColumns(['action', 'is_active', 'created_at', 'updated_at']);
     }
 
@@ -61,7 +62,7 @@ class SalesMatrialTypeDataTable extends BaseDataTable
     public function getColumns(): array
     {
         return [
-            ['name' => 'id',         'data' => 'id',         'title' => '#',                                          'className' => 'text-center'],
+            ['name' => 'DT_RowIndex',         'data' => 'DT_RowIndex',         'title' => '#','className' => 'text-center', 'orderable' => false,],
             ['name' => 'name',       'data' => 'name',       'title' => trans('dashboard/sales_matrial_type.name'),             'className' => 'text-center', 'searchable' => false],
             ['name' => 'is_active',  'data' => 'is_active',  'title' => trans('dashboard/sales_matrial_type.is_active'),        'className' => 'text-center', 'orderable' => false, 'searchable' => false],
             ['name' => 'company',    'data' => 'company',    'title' => trans('dashboard/sales_matrial_type.company'),          'className' => 'text-center', 'orderable' => false, 'searchable' => false],
