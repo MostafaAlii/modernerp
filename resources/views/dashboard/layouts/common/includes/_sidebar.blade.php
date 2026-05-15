@@ -100,6 +100,22 @@
                     </ul>
                 </li>
                 <!-- End Stores -->
+                <!-- Start Inv Uoms -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.invUoms.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-scale"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/inv_uom.inv_uoms') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.invUoms.index') }}" href="{{ route('admin.invUoms.index') }}">
+                                {{ trans('dashboard/inv_uom.inv_uoms') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Inv Uoms -->
             </ul>
         </div>
     </div>
