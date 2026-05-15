@@ -40,7 +40,11 @@ Route::group(
 
             // salesMatrialTypes
             Route::resource('salesMatrialTypes', Dashboard\SalesMatrialTypeController::class)->except(['show']);
-            Route::patch('salesMatrialTypes/{salesMatrialType}/toggle-status',[Dashboard\SalesMatrialTypeController::class, 'toggleStatus'])->name('salesMatrialTypes.toggleStatus');});
+            Route::patch('salesMatrialTypes/{salesMatrialType}/toggle-status',[Dashboard\SalesMatrialTypeController::class, 'toggleStatus'])->name('salesMatrialTypes.toggleStatus');
+            // stores
+            Route::resource('stores', Dashboard\StoreController::class)->except(['show']);
+            Route::patch('stores/{store}/toggle-status', [Dashboard\StoreController::class, 'toggleStatus'])->name('stores.toggleStatus');    
+        });
         require __DIR__ . '../../auth.php';
     }
 );

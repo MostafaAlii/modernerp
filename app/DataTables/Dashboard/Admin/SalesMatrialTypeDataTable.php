@@ -5,6 +5,7 @@ namespace App\DataTables\Dashboard\Admin;
 use App\DataTables\Base\BaseDataTable;
 use App\Models\SalesMatrialType;
 use App\Enums\SalesMatrialType\SalesMatrialTypeStatus;
+use App\Http\Middleware\EnsureOwner;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Utilities\Request as DataTableRequest;
@@ -19,7 +20,7 @@ class SalesMatrialTypeDataTable extends BaseDataTable
 
     public function dataTable($query): EloquentDataTable
     {
-        return (new EloquentDataTable($query))
+        $dataTable = (new EloquentDataTable($query))
             ->addColumn('action', function (SalesMatrialType $salesMatrialType) {
                 return view('dashboard.admin.salesMatrialTypes.btn.actions', compact('salesMatrialType'));
             })
@@ -38,37 +39,58 @@ class SalesMatrialTypeDataTable extends BaseDataTable
                         </div>
                     </div>
                 ';
-            })
-            ->editColumn('company', function (SalesMatrialType $salesMatrialType) {
+            });
+
+        // ✅ نفس الشرط - عمود الشركة يظهر فقط للـ OWNER
+        if (EnsureOwner::check()) {
+            $dataTable->editColumn('company', function (SalesMatrialType $salesMatrialType) {
                 return $salesMatrialType->company?->name ?? '-';
-            })
-            ->editColumn('created_at', function (SalesMatrialType $salesMatrialType) {
-                return $this->formatTranslatedDate($salesMatrialType->created_at);
-            })
+            });
+        }
+
+        $dataTable->editColumn('created_at', function (SalesMatrialType $salesMatrialType) {
+            return $this->formatTranslatedDate($salesMatrialType->created_at);
+        })
             ->editColumn('updated_at', function (SalesMatrialType $salesMatrialType) {
                 return $this->formatTranslatedDate($salesMatrialType->updated_at);
             })
             ->addIndexColumn()
             ->rawColumns(['action', 'is_active', 'created_at', 'updated_at']);
+
+        return $dataTable;
     }
 
     public function query(): QueryBuilder
     {
-        return SalesMatrialType::query()
-            ->with(['translations', 'company'])
+        $query = SalesMatrialType::query()
+            ->with(['translations'])
             ->latest();
+
+        // ✅ نفس الشرط - الـ relation بتاع company يضاف فقط للـ OWNER
+        if (EnsureOwner::check()) {
+            $query->with(['company']);
+        }
+
+        return $query;
     }
 
     public function getColumns(): array
     {
-        return [
-            ['name' => 'DT_RowIndex',         'data' => 'DT_RowIndex',         'title' => '#','className' => 'text-center', 'orderable' => false,],
-            ['name' => 'name',       'data' => 'name',       'title' => trans('dashboard/sales_matrial_type.name'),             'className' => 'text-center', 'searchable' => false],
-            ['name' => 'is_active',  'data' => 'is_active',  'title' => trans('dashboard/sales_matrial_type.is_active'),        'className' => 'text-center', 'orderable' => false, 'searchable' => false],
-            ['name' => 'company',    'data' => 'company',    'title' => trans('dashboard/sales_matrial_type.company'),          'className' => 'text-center', 'orderable' => false, 'searchable' => false],
-            ['name' => 'created_at', 'data' => 'created_at', 'title' => trans('dashboard/general.created_at'),        'className' => 'text-center'],
-            ['name' => 'updated_at', 'data' => 'updated_at', 'title' => trans('dashboard/general.updated_at'),        'className' => 'text-center'],
-            ['name' => 'action',     'data' => 'action',     'title' => trans('dashboard/general.actions'),           'className' => 'text-center', 'orderable' => false, 'searchable' => false],
+        $columns = [
+            ['name' => 'DT_RowIndex', 'data' => 'DT_RowIndex', 'title' => '#', 'className' => 'text-center', 'orderable' => false],
+            ['name' => 'name',        'data' => 'name',        'title' => trans('dashboard/sales_matrial_type.name'),        'className' => 'text-center', 'searchable' => false],
+            ['name' => 'is_active',   'data' => 'is_active',   'title' => trans('dashboard/sales_matrial_type.is_active'),   'className' => 'text-center', 'orderable' => false, 'searchable' => false],
         ];
+
+        // ✅ نفس الشرط - عمود الشركة يظهر فقط للـ OWNER
+        if (EnsureOwner::check()) {
+            $columns[] = ['name' => 'company', 'data' => 'company', 'title' => trans('dashboard/sales_matrial_type.company'), 'className' => 'text-center', 'orderable' => false, 'searchable' => false];
+        }
+
+        $columns[] = ['name' => 'created_at', 'data' => 'created_at', 'title' => trans('dashboard/general.created_at'), 'className' => 'text-center'];
+        $columns[] = ['name' => 'updated_at', 'data' => 'updated_at', 'title' => trans('dashboard/general.updated_at'), 'className' => 'text-center'];
+        $columns[] = ['name' => 'action',     'data' => 'action',     'title' => trans('dashboard/general.actions'),  'className' => 'text-center', 'orderable' => false, 'searchable' => false];
+
+        return $columns;
     }
 }
