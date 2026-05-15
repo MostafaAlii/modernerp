@@ -40,7 +40,15 @@ Route::group(
 
             // salesMatrialTypes
             Route::resource('salesMatrialTypes', Dashboard\SalesMatrialTypeController::class)->except(['show']);
-            Route::patch('salesMatrialTypes/{salesMatrialType}/toggle-status',[Dashboard\SalesMatrialTypeController::class, 'toggleStatus'])->name('salesMatrialTypes.toggleStatus');});
+            Route::patch('salesMatrialTypes/{salesMatrialType}/toggle-status',[Dashboard\SalesMatrialTypeController::class, 'toggleStatus'])->name('salesMatrialTypes.toggleStatus');
+            // stores
+            Route::resource('stores', Dashboard\StoreController::class)->except(['show']);
+            Route::patch('stores/{store}/toggle-status', [Dashboard\StoreController::class, 'toggleStatus'])->name('stores.toggleStatus');
+            // Inv Uoms Routes
+            Route::resource('invUoms', Dashboard\InvUomController::class)->except(['show']);
+            Route::patch('invUoms/{invUom}/toggle-status', [Dashboard\InvUomController::class, 'toggleStatus'])->name('invUoms.toggleStatus');
+            Route::patch('invUoms/{invUom}/toggle-master', [Dashboard\InvUomController::class, 'toggleMaster'])->name('invUoms.toggleMaster');
+        });
         require __DIR__ . '../../auth.php';
     }
 );
