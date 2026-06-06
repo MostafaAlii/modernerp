@@ -116,6 +116,22 @@
                     </ul>
                 </li>
                 <!-- End Inv Uoms -->
+                <!-- Start Inv Uoms -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.categories.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-scale"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/categories.categories') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.categories.index') }}" href="{{ route('admin.categories.index') }}">
+                                {{ trans('dashboard/categories.categories') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Categories -->
             </ul>
         </div>
     </div>
