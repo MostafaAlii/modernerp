@@ -55,4 +55,7 @@ return [
     'image'        => 'صورة المنتج',
 'image_hint'   => 'مسموح: JPG, PNG, WEBP - الحد الأقصى 2MB',
 'remove_image' => 'حذف الصورة',
+'product_details' => 'تفاصيل المنتج',
+'status' => 'الحاله',
+'qr_code' => 'QR Code'
 ];

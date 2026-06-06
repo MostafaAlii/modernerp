@@ -113,15 +113,8 @@
             if (existingData.size_id) {
                 newItem.querySelector(`select[name*="size_id"]`).value = existingData.size_id;
             }
-            if (existingData.sku) {
-                newItem.querySelector(`input[name*="[sku]"]`).value = existingData.sku;
-            }
-            if (existingData.barcode) {
-                newItem.querySelector(`input[name*="[barcode]"]`).value = existingData.barcode;
-            }
             newItem.querySelector(`input[name*="[quantity]"]`).value        = existingData.quantity ?? 0;
             newItem.querySelector(`input[name*="[min_stock_alert]"]`).value = existingData.min_stock_alert ?? 0;
-
             if (existingData.prices) {
                 existingData.prices.forEach(price => {
                     const priceInput = newItem.querySelector(

@@ -28,6 +28,9 @@ return [
     'image'        => 'Product Image',
 'image_hint'   => 'Allowed: JPG, PNG, WEBP - Max 2MB',
 'remove_image' => 'Remove Image',
+'product_details' => 'Product Details',
+'status' => 'Status',
+'qr_code' => 'QR Code',
 
     // Variant Types
     'variant_type_simple'     => 'Simple',

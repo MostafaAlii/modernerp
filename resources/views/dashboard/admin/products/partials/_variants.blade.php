@@ -57,22 +57,22 @@
                 </select>
             </div>
 
-            {{-- SKU --}}
+            {{-- SKU
             <div class="col-md-6 mb-3">
                 <label class="form-label">{{ trans('dashboard/products.sku') }}</label>
                 <input type="text"
                     name="variants[__INDEX__][sku]"
                     class="form-control"
                     placeholder="AUTO">
-            </div>
+            </div>--}}
 
-            {{-- BARCODE --}}
+            {{-- BARCODE 
             <div class="col-md-6 mb-3">
                 <label class="form-label">{{ trans('dashboard/products.barcode') }}</label>
                 <input type="text"
                     name="variants[__INDEX__][barcode]"
                     class="form-control">
-            </div>
+            </div>--}}
 
             {{-- QUANTITY --}}
             <div class="col-md-6 mb-3">

@@ -9,36 +9,27 @@ use App\Http\Requests\Dashboard\Product\UpdateProductRequest;
 use App\Enums\Product\ProductVariantType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Services\SkuGeneratorService;
 
-class ProductRepository implements ProductRepositoryInterface
-{
-    /*
-    |--------------------------------------------------------------------------
-    | Index - عرض كل المنتجات في DataTable
-    |--------------------------------------------------------------------------
-    */
-    public function index(ProductDataTable $dataTable)
-    {
+class ProductRepository implements ProductRepositoryInterface {
+    protected $skuGenerator;
+    public function __construct(SkuGeneratorService $skuGenerator) {
+        $this->skuGenerator = $skuGenerator;
+    }
+
+    public function index(ProductDataTable $dataTable) {
         return $dataTable->render('dashboard.admin.products.index', [
             'title' => trans('dashboard/products.products'),
         ]);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Create - صفحة إضافة منتج جديد
-    | بنجيب كل البيانات اللي محتاجها الفورم
-    |--------------------------------------------------------------------------
-    */
-    public function create()
-    {
+    public function create() {
         $categories = Category::active()->with('translations')->get();
         $brands     = Brand::active()->with('translations')->get();
         $colors     = Color::active()->with('translations')->get();
         $sizes      = Size::active()->with('translations')->get();
         $salesUnits = SalesUnit::active()->with('translations')->get();
         $variantTypes = ProductVariantType::cases();
-
         return view('dashboard.admin.products.create', compact(
             'categories',
             'brands',
@@ -240,7 +231,12 @@ class ProductRepository implements ProductRepositoryInterface
 
         $variants = $request->input('variants', []);
 
-        foreach ($variants as $variantData) {
+        foreach ($variants as $index => $variantData) {
+            $sku = $this->skuGenerator->generateVariantSku($product, $variantData);
+            $barcode = null;
+            if ($request->boolean('has_barcode')) {
+                $barcode = $this->skuGenerator->generateBarcode();
+            }
             // تحديد color_id و size_id بناءً على نوع الـ variant
             $colorId = $variantType->hasColor()
                 ? ($variantData['color_id'] ?? null)
@@ -255,8 +251,8 @@ class ProductRepository implements ProductRepositoryInterface
                 'uuid'            => Str::uuid(),
                 'color_id'        => $colorId,
                 'size_id'         => $sizeId,
-                'sku'             => $variantData['sku'] ?? null,
-                'barcode'         => $variantData['barcode'] ?? null,
+                'sku'             => $sku,
+                'barcode'         => $barcode,
                 'quantity'        => $variantData['quantity'] ?? 0,
                 'min_stock_alert' => $variantData['min_stock_alert'] ?? 0,
                 'status'          => 1,
@@ -275,4 +271,37 @@ class ProductRepository implements ProductRepositoryInterface
             }
         }
     }
+
+    public function getProductDetails(int $id): array
+{
+    $product = Product::with([
+        'category.translations',
+        'brand.translations',
+        'variants.color.translations',
+        'variants.size.translations',
+        'variants.prices.salesUnit.translations'
+    ])->findOrFail($id);
+    
+    return [
+        'id' => $product->id,
+        'name' => $product->name,
+        'category' => $product->category?->name,
+        'brand' => $product->brand?->name,
+        'variant_type' => $product->variant_type->label(),
+        'status' => $product->status,
+        'has_qr' => $product->has_qr,
+        'variants' => $product->variants->map(function($variant) {
+            return [
+                'id' => $variant->id,
+                'color' => $variant->color?->name,
+                'color_hex' => $variant->color?->hex_code,
+                'size' => $variant->size?->name,
+                'sku' => $variant->sku,
+                'barcode' => $variant->barcode,
+                'quantity' => $variant->quantity,
+                'qr_code' => $variant->qr_code ? asset('storage/' . $variant->qr_code) : null,
+            ];
+        }),
+    ];
+}
 }

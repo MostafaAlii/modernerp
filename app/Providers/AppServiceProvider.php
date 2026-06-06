@@ -6,9 +6,12 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\{View, Cache, Schema};
 use App\Models\AdminPanelSetting;
 use Illuminate\Support\Facades\Blade;
+use App\Services\SkuGeneratorService;
 class AppServiceProvider extends ServiceProvider {
     public function register(): void {
-        
+        $this->app->singleton(SkuGeneratorService::class, function ($app) {
+            return new SkuGeneratorService();
+        });
     }
 
     public function boot(): void {

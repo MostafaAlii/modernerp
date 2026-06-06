@@ -14,4 +14,5 @@ interface ProductRepositoryInterface
     public function edit(Product $product);
     public function update(UpdateProductRequest $request, Product $product);
     public function destroy(Product $product): array;
+    public function getProductDetails(int $id): array;
 }

@@ -52,4 +52,9 @@ class ProductController extends Controller
         return redirect()->route('admin.products.index')
             ->with('error', trans('dashboard/general.error_occurred'));
     }
+
+    public function show($id) {
+        $productDetails = $this->productRepository->getProductDetails($id);
+        return response()->json($productDetails);
+    }
 }
