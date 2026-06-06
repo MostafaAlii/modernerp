@@ -9,12 +9,14 @@ use App\Http\Requests\Dashboard\Product\UpdateProductRequest;
 use App\Enums\Product\ProductVariantType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use App\Services\SkuGeneratorService;
+use App\Services\{SkuGeneratorService,QrCodeService};
 
 class ProductRepository implements ProductRepositoryInterface {
     protected $skuGenerator;
-    public function __construct(SkuGeneratorService $skuGenerator) {
+    protected $qrCodeService;
+    public function __construct(SkuGeneratorService $skuGenerator,QrCodeService $qrCodeService) {
         $this->skuGenerator = $skuGenerator;
+        $this->qrCodeService = $qrCodeService;
     }
 
     public function index(ProductDataTable $dataTable) {
@@ -132,8 +134,7 @@ class ProductRepository implements ProductRepositoryInterface {
     | Update - تعديل منتج موجود
     |--------------------------------------------------------------------------
     */
-    public function update(UpdateProductRequest $request, Product $product)
-    {
+    public function update(UpdateProductRequest $request, Product $product) {
         try {
             DB::beginTransaction();
 
@@ -197,8 +198,7 @@ class ProductRepository implements ProductRepositoryInterface {
     | Destroy - حذف منتج
     |--------------------------------------------------------------------------
     */
-    public function destroy(Product $product): array
-    {
+    public function destroy(Product $product): array {
         try {
             DB::beginTransaction();
             // حذف المنتج هيحذف تلقائياً:
@@ -222,15 +222,11 @@ class ProductRepository implements ProductRepositoryInterface {
     | بتتستخدم في store و update
     |--------------------------------------------------------------------------
     */
-    private function syncVariants(Product $product, $request): void
-    {
+    private function syncVariants(Product $product, $request): void {
         $variantType = ProductVariantType::from((int) $request->variant_type);
-
         // امسح الـ variants القديمة وابدأ من الأول
         $product->variants()->delete();
-
         $variants = $request->input('variants', []);
-
         foreach ($variants as $index => $variantData) {
             $sku = $this->skuGenerator->generateVariantSku($product, $variantData);
             $barcode = null;
@@ -269,39 +265,53 @@ class ProductRepository implements ProductRepositoryInterface {
                     ]);
                 }
             }
+            if ($request->boolean('has_qr')) {
+                try {
+                    $this->qrCodeService->generateForVariant($variant);
+                } catch (\Exception $e) {
+                    \Log::error('QR Code generation failed: ' . $e->getMessage());
+                }
+            }
         }
     }
 
-    public function getProductDetails(int $id): array
-{
-    $product = Product::with([
-        'category.translations',
-        'brand.translations',
-        'variants.color.translations',
-        'variants.size.translations',
-        'variants.prices.salesUnit.translations'
-    ])->findOrFail($id);
+    public function getProductDetails(int $id): array {
+        $product = Product::with([
+            'category.translations',
+            'brand.translations',
+            'variants.color.translations',
+            'variants.size.translations',
+            'variants.prices.salesUnit.translations',
+            'variants.media'
+        ])->findOrFail($id);
     
-    return [
-        'id' => $product->id,
-        'name' => $product->name,
-        'category' => $product->category?->name,
-        'brand' => $product->brand?->name,
-        'variant_type' => $product->variant_type->label(),
-        'status' => $product->status,
-        'has_qr' => $product->has_qr,
-        'variants' => $product->variants->map(function($variant) {
-            return [
-                'id' => $variant->id,
-                'color' => $variant->color?->name,
-                'color_hex' => $variant->color?->hex_code,
-                'size' => $variant->size?->name,
-                'sku' => $variant->sku,
-                'barcode' => $variant->barcode,
-                'quantity' => $variant->quantity,
-                'qr_code' => $variant->qr_code ? asset('storage/' . $variant->qr_code) : null,
-            ];
-        }),
-    ];
-}
+        return [
+            'id' => $product->id,
+            'name' => $product->name,
+            'category' => $product->category?->name,
+            'brand' => $product->brand?->name,
+            'variant_type' => $product->variant_type->label(),
+            'status' => $product->status,
+            'has_qr' => $product->has_qr,
+            'variants' => $product->variants->map(function($variant) {
+                    $qrCodeUrl = $variant->getMediaUrl(
+                        baseFolder: 'qrcodes',
+                        model: $variant,
+                        column: null,
+                        relation: 'media',
+                        collectionName: 'qr_code'
+                    );
+                return [
+                    'id' => $variant->id,
+                    'color' => $variant->color?->name,
+                    'color_hex' => $variant->color?->hex_code,
+                    'size' => $variant->size?->name,
+                    'sku' => $variant->sku,
+                    'barcode' => $variant->barcode,
+                    'quantity' => $variant->quantity,
+                    'qr_code' => $qrCodeUrl,
+                ];
+            }),
+        ];
+    }
 }

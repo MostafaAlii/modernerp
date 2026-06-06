@@ -3,9 +3,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\Concerns\UploadMedia;
 class ProductVariant extends BaseModel
 {
+    use UploadMedia;
     protected $table = 'product_variants';
 
     protected $fillable = [
@@ -16,6 +17,7 @@ class ProductVariant extends BaseModel
         'store_id',
         'sku',
         'barcode',
+        'qr_code',
         'quantity',
         'min_stock_alert',
         'status',
@@ -109,6 +111,11 @@ class ProductVariant extends BaseModel
     public function stockMovements(): HasMany
     {
         return $this->hasMany(StockMovement::class);
+    }
+
+    public function media()
+    {
+        return $this->morphMany(\App\Models\Media::class, 'mediable');
     }
 
     /*
