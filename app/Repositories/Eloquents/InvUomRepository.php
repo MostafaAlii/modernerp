@@ -6,12 +6,13 @@ use App\DataTables\Dashboard\Admin\InvUomDataTable;
 use App\Repositories\Contracts\InvUomRepositoryInterface;
 use App\Models\{InvUom, Company};
 use App\Http\Requests\Dashboard\InvUom\StoreInvUomRequest;
-use App\Enums\InvUom\{UomStatus,UomMaster};
+use App\Enums\InvUom\{UomStatus, UomMaster};
 use Illuminate\Support\Facades\DB;
 
 class InvUomRepository implements InvUomRepositoryInterface
 {
-    public function index(InvUomDataTable $invUomDataTable) {
+    public function index(InvUomDataTable $invUomDataTable)
+    {
         $companies = Company::whereStatus('active')->get(['id', 'name']);
         return $invUomDataTable->render('dashboard.admin.invUoms.index', [
             'title' => trans('dashboard/inv_uom.inv_uoms'),

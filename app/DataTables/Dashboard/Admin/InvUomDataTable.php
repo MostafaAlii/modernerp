@@ -75,14 +75,16 @@ class InvUomDataTable extends BaseDataTable
         return $dataTable;
     }
 
-    public function query(): QueryBuilder {
+    public function query(): QueryBuilder
+    {
         $query = InvUom::query()->with(['translations'])->latest();
         if (EnsureOwner::check()) {
             $query->with(['company']);
         }
         return $query;
     }
-    public function getColumns(): array {
+    public function getColumns(): array
+    {
         $columns = [
             ['name' => 'DT_RowIndex', 'data' => 'DT_RowIndex', 'title' => '#', 'className' => 'text-center', 'orderable' => false],
             ['name' => 'name',       'data' => 'name',       'title' => trans('dashboard/inv_uom.name'),              'className' => 'text-center', 'searchable' => false],
