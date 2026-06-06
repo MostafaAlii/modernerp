@@ -49,6 +49,9 @@ Route::group(
             Route::patch('invUoms/{invUom}/toggle-status', [Dashboard\InvUomController::class, 'toggleStatus'])->name('invUoms.toggleStatus');
             Route::patch('invUoms/{invUom}/toggle-master', [Dashboard\InvUomController::class, 'toggleMaster'])->name('invUoms.toggleMaster');
             Route::resource('categories', Dashboard\CategoryController::class)->except(['show']);
+            // Sales Units
+            Route::resource('sales_units', Dashboard\SalesUnitController::class)->except(['show']);
+            Route::resource('sizes', Dashboard\SizeController::class)->except(['show']);
         });
         require __DIR__ . '../../auth.php';
     }

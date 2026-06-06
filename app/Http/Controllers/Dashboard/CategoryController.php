@@ -50,17 +50,11 @@ class CategoryController extends Controller
     public function destroy(Category $category) {
         $result = $this->categoryInterface->delete($category);
         if ($result['status']) {
-            return redirect()
-                ->route('admin.categories.index')
-                ->with('success', trans('dashboard/categories.deleted_successfully'));
+            return redirect()->route('admin.categories.index')->with('success', trans('dashboard/categories.deleted_successfully'));
         }
         return match ($result['message'] ?? 'ERROR') {
-            'HAS_CHILDREN' => redirect()
-                ->route('admin.categories.index')
-                ->with('error', trans('dashboard/categories.cannot_delete_with_children')),
-            default => redirect()
-                ->route('admin.categories.index')
-                ->with('error', trans('dashboard/general.error_occurred')),
+            'HAS_CHILDREN' => redirect()->route('admin.categories.index')->with('error', trans('dashboard/categories.cannot_delete_with_children')),
+            default => redirect()->route('admin.categories.index')->with('error', trans('dashboard/general.error_occurred')),
         };
     }
 }

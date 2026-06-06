@@ -116,10 +116,10 @@
                     </ul>
                 </li>
                 <!-- End Inv Uoms -->
-                <!-- Start Inv Uoms -->
+                <!-- Start Categories -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.categories.index']) }}">
                     <a href="#!" class="nav-link">
-                        <span class="nav-icon"><i class="ti ti-scale"></i></span>
+                        <span class="nav-icon"><i class="ti ti-layout-grid"></i></span>
                         <span class="nav-text">{{ trans('dashboard/categories.categories') }}</span>
                         <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
                     </a>
@@ -132,6 +132,41 @@
                     </ul>
                 </li>
                 <!-- End Categories -->
+
+                <!-- Start Sales Units -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.sales_units.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-ruler"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/sales_units.sales_units') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.sales_units.index') }}"
+                            href="{{ route('admin.sales_units.index') }}">
+                                {{ trans('dashboard/sales_units.sales_units') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Sales Units -->
+                <!-- Start Sizes -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.sizes.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-resize"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/sizes.sizes') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.sizes.index') }}"
+                            href="{{ route('admin.sizes.index') }}">
+                                {{ trans('dashboard/sizes.sizes') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Sizes -->
             </ul>
         </div>
     </div>

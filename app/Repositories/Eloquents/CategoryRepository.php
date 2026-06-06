@@ -8,11 +8,8 @@ use App\Models\{Category, Company};
 use App\Http\Requests\Dashboard\Category\StoreCategoryRequest;
 use App\Enums\Category\{CategoryStatus};
 use Illuminate\Support\Facades\DB;
-
-class CategoryRepository implements CategoryRepositoryInterface
-{
-    public function index(CategoryDataTable $categoryDataTable)
-    {
+class CategoryRepository implements CategoryRepositoryInterface {
+    public function index(CategoryDataTable $categoryDataTable) {
         $companies = Company::whereStatus('active')->get(['id', 'name']);
         return $categoryDataTable->render('dashboard.admin.categories.index', [
             'title' => trans('dashboard/categories.categories'),
@@ -27,7 +24,6 @@ class CategoryRepository implements CategoryRepositoryInterface
                 'parent_id' => $request?->parent_id,
                 'status' => $request->boolean('status'),
             ]);
-
             foreach ($request->name as $locale => $value) {
                 if (filled($value)) {
                     $category->translateOrNew($locale)->name = $value;
@@ -48,11 +44,9 @@ class CategoryRepository implements CategoryRepositoryInterface
         }
     }
 
-    public function update(Category $category, array $data): Category
-    {
+    public function update(Category $category, array $data): Category {
         try {
             DB::beginTransaction();
-
             // MAIN TABLE UPDATE
             $category->update([
                 'parent_id' => $data['parent_id'] ?? $category->parent_id,
@@ -75,7 +69,6 @@ class CategoryRepository implements CategoryRepositoryInterface
                     }
                 }
             }
-
             if (isset($data['description'])) {
                 foreach ($data['description'] as $locale => $value) {
                     if (filled($value)) {
@@ -83,13 +76,9 @@ class CategoryRepository implements CategoryRepositoryInterface
                     }
                 }
             }
-
             $category->save();
-
             DB::commit();
-
             return $category;
-
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -118,73 +107,4 @@ class CategoryRepository implements CategoryRepositoryInterface
             ];
         }
     }
-
-    /*public function toggleStatus(InvUom $invUom)
-    {
-        try {
-            $invUom->update([
-                'is_active' => $invUom->is_active === UomStatus::ACTIVE
-                    ? UomStatus::INACTIVE
-                    : UomStatus::ACTIVE,
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'badge'   => $invUom->is_active->badge(),
-                'message' => trans('dashboard/inv_uom.status_updated'),
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => trans('dashboard/general.error_occurred'),
-            ], 500);
-        }
-    }
-
-    public function toggleMaster(InvUom $invUom)
-    {
-        try {
-            $invUom->update([
-                'is_master' => $invUom->is_master === UomMaster::MASTER
-                    ? UomMaster::SUB
-                    : UomMaster::MASTER,
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'badge'   => $invUom->is_master->badge(),
-                'message' => trans('dashboard/inv_uom.master_updated'),
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => trans('dashboard/general.error_occurred'),
-            ], 500);
-        }
-    }
-
-    public function destroy(InvUom $invUom)
-    {
-        try {
-            $invUom->delete();
-
-            if (request()->ajax()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => trans('dashboard/inv_uom.deleted_successfully')
-                ]);
-            }
-
-            return redirect()->route('admin.invUoms.index')->with('success', trans('dashboard/inv_uom.deleted_successfully'));
-        } catch (\Exception $e) {
-            if (request()->ajax()) {
-                return response()->json([
-                    'success' => false,
-                    'message' => trans('dashboard/general.error_occurred')
-                ], 500);
-            }
-
-            return redirect()->route('admin.invUoms.index')->with('error', trans('dashboard/general.error_occurred'));
-        }
-    }*/
 }
