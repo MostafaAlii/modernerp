@@ -54,6 +54,7 @@ Route::group(
             Route::resource('sizes', Dashboard\SizeController::class)->except(['show']);
             Route::resource('brands', Dashboard\BrandController::class)->except(['show']);
             Route::resource('colors', Dashboard\ColorController::class)->except(['show']);
+            Route::resource('products', Dashboard\ProductController::class);
         });
         require __DIR__ . '../../auth.php';
     }

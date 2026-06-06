@@ -201,6 +201,29 @@
                     </ul>
                 </li>
                 <!-- End Colors -->
+                <!-- Start Products -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.products.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-shirt"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/products.products') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.products.index') }}"
+                            href="{{ route('admin.products.index') }}">
+                                {{ trans('dashboard/products.products') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.products.create') }}"
+                            href="{{ route('admin.products.create') }}">
+                                {{ trans('dashboard/products.create') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Products -->
             </ul>
         </div>
     </div>

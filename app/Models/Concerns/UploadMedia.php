@@ -1,14 +1,9 @@
 <?php
-
 declare(strict_types=1);
-
 namespace App\Models\Concerns;
-
 use Illuminate\Http\UploadedFile;
 use Intervention\Image\Facades\Image;
-
-trait UploadMedia
-{
+trait UploadMedia {
     public function uploadSingleMedia(
         $baseFolder,
         UploadedFile $file,

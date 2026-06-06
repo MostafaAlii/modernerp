@@ -1,0 +1,57 @@
+<?php
+return [
+    'product'              => 'Product',
+    'products'             => 'Products',
+    'create'               => 'Add New Product',
+    'edit'                 => 'Edit Product',
+    'delete'               => 'Delete Product',
+
+    'name'                 => 'Product Name',
+    'description'          => 'Description',
+    'category'             => 'Category',
+    'brand'                => 'Brand',
+    'variant_type'         => 'Product Type',
+    'has_barcode'          => 'Barcode',
+    'has_qr'               => 'QR Code',
+    'is_active'            => 'Status',
+    'stock'                => 'Stock',
+    'sku'                  => 'SKU',
+    'barcode'              => 'Barcode',
+    'quantity'             => 'Quantity',
+    'min_stock_alert'      => 'Min Stock Alert',
+    'price'                => 'Price',
+    'cost_price'           => 'Cost Price',
+    'variants'             => 'Variants',
+    'add_variant'          => 'Add Variant',
+    'prices'               => 'Prices',
+    'variant'               =>      'Variant',
+    'image'        => 'Product Image',
+'image_hint'   => 'Allowed: JPG, PNG, WEBP - Max 2MB',
+'remove_image' => 'Remove Image',
+
+    // Variant Types
+    'variant_type_simple'     => 'Simple',
+    'variant_type_color'      => 'By Colors',
+    'variant_type_size'       => 'By Sizes',
+    'variant_type_color_size' => 'By Colors & Sizes',
+
+    // Messages
+    'created_successfully' => 'Product created successfully',
+    'updated_successfully' => 'Product updated successfully',
+    'deleted_successfully' => 'Product deleted successfully',
+    'delete_confirm'       => 'Are you sure you want to delete product ":name"?',
+
+    'validation' => [
+        'name_required'     => 'Product name in :locale is required',
+        'category_required' => 'Category is required',
+        'variant_required'  => 'At least one variant is required',
+        'price_required'    => 'Price is required',
+    ],
+    'basic_info'            =>      'Basic Information',
+    'select_category'       =>      'Select Main - Sub Category',
+    'select_brand'          =>      'Select Brand',
+    'select_color'          =>      'Select Color',
+    'select_size'           =>      'Select Size',
+    'color'                 =>      'Color',
+    'size'                  =>      'Size',    
+];
