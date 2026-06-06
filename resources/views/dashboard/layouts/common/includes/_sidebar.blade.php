@@ -167,6 +167,40 @@
                     </ul>
                 </li>
                 <!-- End Sizes -->
+                <!-- Start Brands -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.brands.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-award"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/brands.brands') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.brands.index') }}"
+                            href="{{ route('admin.brands.index') }}">
+                                {{ trans('dashboard/brands.brands') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Brands -->
+                <!-- Start Colors -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.colors.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-palette"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/colors.colors') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.colors.index') }}"
+                            href="{{ route('admin.colors.index') }}">
+                                {{ trans('dashboard/colors.colors') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Colors -->
             </ul>
         </div>
     </div>
