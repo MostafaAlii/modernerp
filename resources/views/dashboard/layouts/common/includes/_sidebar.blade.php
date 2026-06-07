@@ -30,8 +30,8 @@
                     </ul>
                 </li>
                 <!-- End AdminPanelSetting -->
-                
-                    
+
+
                 @ownerOnly
                 <!-- Start Client -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.clients.index']) }}">
@@ -116,6 +116,22 @@
                     </ul>
                 </li>
                 <!-- End Inv Uoms -->
+                <!-- Start Suppliers -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.suppliers.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-truck"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/suppliers.suppliers') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.suppliers.index') }}" href="{{ route('admin.suppliers.index') }}">
+                                {{ trans('dashboard/suppliers.suppliers') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Suppliers -->
                 <!-- Start Categories -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.categories.index']) }}">
                     <a href="#!" class="nav-link">
