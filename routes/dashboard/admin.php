@@ -56,6 +56,9 @@ Route::group(
             Route::resource('colors', Dashboard\ColorController::class)->except(['show']);
             Route::resource('suppliers', Dashboard\SupplierController::class)->except(['show']);
             Route::resource('products', Dashboard\ProductController::class);
+            Route::resource('purchases', Dashboard\PurchaseController::class);
+            Route::patch('purchases/{purchase}/confirm', [Dashboard\PurchaseController::class, 'confirm'])->name('purchases.confirm');
+            Route::patch('purchases/{purchase}/cancel', [Dashboard\PurchaseController::class, 'cancel'])->name('purchases.cancel');
         });
         require __DIR__ . '../../auth.php';
     }

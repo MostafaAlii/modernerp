@@ -10,6 +10,7 @@ class StockMovement extends BaseModel
     protected $table = 'stock_movements';
 
     protected $fillable = [
+        'uuid',
         'product_variant_id',
         'store_id',
         'type',

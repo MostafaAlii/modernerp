@@ -48,8 +48,8 @@
                     </ul>
                 </li>
                 <!-- End Client -->
-                @endOwnerOnly
 
+                <!-- Start treasuries -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.treasuries.index']) }}">
                     <a href="#!" class="nav-link">
                         <span class="nav-icon"><i class="ti ti-building-bank"></i></span>
@@ -65,6 +65,7 @@
                         </li>
                     </ul>
                 </li>
+                <!-- End treasuries -->
 
                 <!-- Start SalesMatrialType -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.salesMatrialTypes.index']) }}">
@@ -84,22 +85,6 @@
                 </li>
                 <!-- End SalesMatrialType -->
 
-                <!-- Start Stores -->
-                <li class="nav-item nav-hasmenu {{ is_open(['admin.stores.index']) }}">
-                    <a href="#!" class="nav-link">
-                        <span class="nav-icon"><i class="ti ti-building-warehouse"></i></span>
-                        <span class="nav-text">{{ trans('dashboard/store.stores') }}</span>
-                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
-                    </a>
-                    <ul class="nav-submenu">
-                        <li class="nav-item">
-                            <a class="nav-link {{ is_active('admin.stores.index') }}" href="{{ route('admin.stores.index') }}">
-                                {{ trans('dashboard/store.stores') }}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- End Stores -->
                 <!-- Start Inv Uoms -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.invUoms.index']) }}">
                     <a href="#!" class="nav-link">
@@ -116,6 +101,25 @@
                     </ul>
                 </li>
                 <!-- End Inv Uoms -->
+                @endOwnerOnly
+
+                <!-- Start Stores -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.stores.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-building-warehouse"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/store.stores') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.stores.index') }}" href="{{ route('admin.stores.index') }}">
+                                {{ trans('dashboard/store.stores') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End Stores -->
+
                 <!-- Start Suppliers -->
                 <li class="nav-item nav-hasmenu {{ is_open(['admin.suppliers.index']) }}">
                     <a href="#!" class="nav-link">
@@ -240,6 +244,27 @@
                     </ul>
                 </li>
                 <!-- End Products -->
+                <!-- Start purchases -->
+                <li class="nav-item nav-hasmenu {{ is_open(['admin.purchases.index']) }}">
+                    <a href="#!" class="nav-link">
+                        <span class="nav-icon"><i class="ti ti-shopping-cart"></i></span>
+                        <span class="nav-text">{{ trans('dashboard/purchases.purchases') }}</span>
+                        <span class="nav-arrow"><i data-feather="chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-submenu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.purchases.index') }}" href="{{ route('admin.purchases.index') }}">
+                                {{ trans('dashboard/purchases.purchases') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ is_active('admin.purchases.create') }}" href="{{ route('admin.purchases.create') }}">
+                                {{ trans('dashboard/purchases.create') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- End purchases -->
             </ul>
         </div>
     </div>

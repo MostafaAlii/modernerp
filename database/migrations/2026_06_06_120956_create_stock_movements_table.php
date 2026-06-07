@@ -9,6 +9,7 @@ return new class extends Migration
     {
         Schema::create('stock_movements', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique()->comment('Unique purchase identifier');
             $table->foreignId('product_variant_id')
                 ->constrained('product_variants')
                 ->cascadeOnDelete()

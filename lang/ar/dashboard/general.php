@@ -10,6 +10,8 @@ return [
     'status'                            =>                      'حالــه',
     'closed'                            =>                      'اغلاق',
     'translations'                      =>                      'الترجمات',
+    'created_by'                        =>                      'انشى بواسطه',
+    'back'                              =>                      'العوده للخلف',
     // General ::
     'create'                            =>                      'انشاء',
     'save'                              =>                      'حفظ',
